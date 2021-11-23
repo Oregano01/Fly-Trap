@@ -23,4 +23,6 @@ private:
     SDL_Window* window = NULL;
     SDL_Renderer* screenSurface = NULL;
     bool gameRunning;
+    float win_Width = 1280;
+    float win_Height = 720;
 };

@@ -16,9 +16,9 @@ void RenderWindow::init(const char* title, int win_Width, int win_Height)
 {
   if( SDL_Init( SDL_INIT_EVERYTHING ) == 0 )
   {
-      window = SDL_CreateWindow( "Fly-Trap", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, win_Width , win_Height , SDL_WINDOW_SHOWN );
+      window = SDL_CreateWindow( "Fly-Trap", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, win_Width , win_Height , 0 );
       screenSurface = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED);
-      SDL_SetRenderDrawColor(screenSurface, 120, 150, 125, 255);
+
       // Creating and rendering out player texture
       SDL_Surface* temporarySurface = IMG_Load("graphics/fly.png");
       PlayerFlyTexture = SDL_CreateTextureFromSurface(screenSurface, temporarySurface);
@@ -34,61 +34,56 @@ void RenderWindow::init(const char* title, int win_Width, int win_Height)
     }
   }
 
-//
+//Function taking all events
 void RenderWindow::event()
 {
   SDL_Event event;
-  SDL_PollEvent(&event);
-  switch (event.type) {
-      case SDL_QUIT:
-          gameRunning = false;
-          break;
+
+  if (SDL_PollEvent(&event)) {
+    switch (event.type) {
+        case SDL_QUIT:
+            gameRunning = false;
+            break;
+
+//case where we click ESC and our gamewindow will close
+    case SDL_KEYDOWN:
+        switch (event.key.keysym.sym) {
+        case SDLK_ESCAPE:
+            gameRunning = false;
+            break;
+
+        }
       default:
           break;
+    }
   }
 }
-  // if ( SDL_Init(IMG_INIT_PNG ) < 0 )
-  // {
-  //   printf("SDL_IMAGE coult not initialize!!!! SDL_Error: %s\n", SDL_GetError() );
-  // }
-//}
-
-//function rendering our game window
-// RenderWindow::RenderWindow(const char* title, int win_Width, int win_Height)
-// {
-//   window = SDL_CreateWindow( "Fly-Trap", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, win_Width , win_Height , SDL_WINDOW_SHOWN );
-//   if( window == NULL)
-//   {
-//     printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() );
-//   }
-//   else
-//   {
-//     screenSurface = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED );
-//
-//     SDL_SetRenderDrawColor(screenSurface, 120, 150, 125, 255);
-//   }
-//
-//   //Creating and rendering out player texture
-//   SDL_Surface* temporarySurface = IMG_Load("graphics/fly.png");
-//   PlayerFlyTexture = SDL_CreateTextureFromSurface(screenSurface, temporarySurface);
-//   SDL_FreeSurface(temporarySurface);
-//   SDL_RenderClear(screenSurface);
-//   SDL_RenderCopy(screenSurface, PlayerFlyTexture, srcRect, &destRect);
-//   SDL_RenderPresent(screenSurface);
-// }
 
 void RenderWindow::render()
 {
+    SDL_SetRenderDrawColor(screenSurface, 120, 150, 125, 255);
     SDL_RenderClear(screenSurface);
     SDL_RenderCopy(screenSurface, PlayerFlyTexture, srcRect, &destRect);
+
+    //rendering square on screen
+    SDL_Rect rect;
+
+    rect.w = 120;
+    rect.h = 120;
+    rect.x = win_Width / 2;
+    rect.y = win_Height / 2;
+
+    SDL_SetRenderDrawColor(screenSurface, 200, 150, 125, 255);
+    SDL_RenderFillRect(screenSurface, &rect);
+
     SDL_RenderPresent(screenSurface);
 }
 
 void RenderWindow::update()
 {
 
-  destRect.h = 300;
-  destRect.w = 300;
+  destRect.h = 200;
+  destRect.w = 200;
 
 }
 
