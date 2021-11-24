@@ -6,17 +6,18 @@
 #include "player.hpp"
 
 RenderWindow *renderWin = nullptr;
-Player *player = nullptr;
 //main loop
 int main(int argc, char* args[] )
 {
 
+    renderWin = new RenderWindow();
+
     renderWin->init("Fly-Trap", 1280 , 720);
-    player->rect(renderWin, 120, 120, 100, 100, 200, 100, 125, 255);
+    // Player player(window, 120, 120, 100, 100, 200, 100, 125, 255);
 
     while (renderWin->running())
     {
-      player->draw();
+      // player.draw();
       renderWin->event();
       renderWin->update();
       renderWin->render();

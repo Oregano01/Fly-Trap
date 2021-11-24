@@ -7,7 +7,7 @@ class Player : public RenderWindow
 public:
 
   Player(const RenderWindow &screenSurface, int w, int h, int x, int y, int r, int g, int b, int a);
-
+  ~Player();
   void draw();
 private:
   int _w,_h;
