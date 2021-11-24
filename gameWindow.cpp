@@ -17,14 +17,8 @@ void RenderWindow::init(const char* title, int win_Width, int win_Height)
 {
   if( SDL_Init( SDL_INIT_EVERYTHING ) == 0 )
   {
-      window = SDL_CreateWindow( "Fly-Trap", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, win_Width , win_Height , SDL_WINDOW_SHOWN );
+      window = SDL_CreateWindow( "Fly-Trap", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, win_Width , win_Height , SDL_WINDOW_RESIZABLE );
       screenSurface = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED);
-
-      // Creating and rendering out player texture
-      SDL_Surface* temporarySurface = IMG_Load("graphics/fly.png");
-      PlayerFlyTexture = SDL_CreateTextureFromSurface(screenSurface, temporarySurface);
-      SDL_FreeSurface(temporarySurface);
-
 
       gameRunning = true;
     }
@@ -51,6 +45,22 @@ void RenderWindow::event()
         case SDLK_ESCAPE:
             gameRunning = false;
             break;
+        // case SDLK_f:
+        //     SDL_WINDOW_FULLSCREEN;
+        //     break;
+
+        case SDLK_LEFT:
+            _x -= 10;
+            break;
+        case SDLK_RIGHT:
+            _x += 10;
+            break;
+        case SDLK_UP:
+            _y -= 10;
+            break;
+        case SDLK_DOWN:
+            _y += 10;
+            break;
       }
       default:
           break;
@@ -64,17 +74,20 @@ void RenderWindow::render()
     SDL_SetRenderDrawColor(screenSurface, 120, 150, 125, 255);
     SDL_RenderClear(screenSurface);
 
+//Rectangle containing our player graphic
     SDL_Rect rect;
+//position, width and height
+    rect.w = _w;
+    rect.h = _h;
+    rect.x = _x;
+    rect.y = _y;
 
-    rect.w = 120;
-    rect.h = 120;
-    rect.x = 1000;
-    rect.y = 300;
+// Creating and rendering out player texture and later
+    auto temporarySurface = IMG_Load("graphics/fly.png");
+    PlayerFlyTexture = SDL_CreateTextureFromSurface(screenSurface, temporarySurface);
 
-    SDL_SetRenderDrawColor(screenSurface, 200, 100, 125, 255);
-    SDL_RenderFillRect(screenSurface, &rect);
-
-    SDL_RenderCopy(screenSurface, PlayerFlyTexture, srcRect, &destRect);
+    SDL_FreeSurface(temporarySurface);
+    SDL_RenderCopy(screenSurface, PlayerFlyTexture, nullptr, &rect);
     SDL_RenderPresent(screenSurface);
 }
 
@@ -90,5 +103,6 @@ void RenderWindow::clean()
 {
   SDL_DestroyWindow(window);
   SDL_DestroyRenderer(screenSurface);
+  IMG_Quit();
   SDL_Quit();
 }
