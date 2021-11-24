@@ -74,15 +74,15 @@ void RenderWindow::render()
     SDL_SetRenderDrawColor(screenSurface, 120, 150, 125, 255);
     SDL_RenderClear(screenSurface);
 
-//Rectangle containing our player graphic
+    //Rectangle containing our player graphic
     SDL_Rect rect;
-//position, width and height
+    //position, width and height
     rect.w = _w;
     rect.h = _h;
     rect.x = _x;
     rect.y = _y;
 
-// Creating and rendering out player texture and later
+    // Creating and rendering out player texture and later
     auto temporarySurface = IMG_Load("graphics/fly.png");
     PlayerFlyTexture = SDL_CreateTextureFromSurface(screenSurface, temporarySurface);
 
