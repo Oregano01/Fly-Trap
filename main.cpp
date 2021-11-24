@@ -10,10 +10,9 @@ Player *player = nullptr;
 //main loop
 int main(int argc, char* args[] )
 {
-    renderWin = new RenderWindow();
 
-    renderWin->init("Fly-Trap", 1280, 720);
-    player->Player(renderWin, 120, 120, 100, 100, 200, 125, 100, 255);
+    renderWin->init("Fly-Trap", 1280 , 720);
+    player->rect(renderWin, 120, 120, 100, 100, 200, 100, 125, 255);
 
     while (renderWin->running())
     {

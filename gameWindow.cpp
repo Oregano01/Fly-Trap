@@ -2,6 +2,7 @@
 #include <SDL2/SDL_image.h>
 #include <iostream>
 
+#include "player.hpp"
 #include "gameWindow.hpp"
 
 RenderWindow::RenderWindow() {}
@@ -16,9 +17,9 @@ void RenderWindow::init(const char* title, int win_Width, int win_Height)
 {
   if( SDL_Init( SDL_INIT_EVERYTHING ) == 0 )
   {
-      window = SDL_CreateWindow( "Fly-Trap", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, win_Width , win_Height , 0 );
+      window = SDL_CreateWindow( "Fly-Trap", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, win_Width , win_Height , SDL_WINDOW_SHOWN );
       screenSurface = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED);
-
+      SDL_SetRenderDrawColor(screenSurface, 120, 150, 125, 255);
       // Creating and rendering out player texture
       SDL_Surface* temporarySurface = IMG_Load("graphics/fly.png");
       PlayerFlyTexture = SDL_CreateTextureFromSurface(screenSurface, temporarySurface);
@@ -34,7 +35,7 @@ void RenderWindow::init(const char* title, int win_Width, int win_Height)
     }
   }
 
-//Function taking all events
+//
 void RenderWindow::event()
 {
   SDL_Event event;
@@ -43,31 +44,25 @@ void RenderWindow::event()
     switch (event.type) {
         case SDL_QUIT:
             gameRunning = false;
-            break;
+        break;
 
-//case where we click ESC and our gamewindow will close
     case SDL_KEYDOWN:
-        switch (event.key.keysym.sym) {
+      switch (event.key.keysym.sym) {
         case SDLK_ESCAPE:
             gameRunning = false;
             break;
-
-        }
+      }
       default:
           break;
+
     }
   }
 }
 
 void RenderWindow::render()
 {
-    SDL_SetRenderDrawColor(screenSurface, 120, 150, 125, 255);
     SDL_RenderClear(screenSurface);
     SDL_RenderCopy(screenSurface, PlayerFlyTexture, srcRect, &destRect);
-
-    //rendering square on screen
-
-
     SDL_RenderPresent(screenSurface);
 }
 

@@ -1,12 +1,14 @@
 #include "player.hpp"
+#include "gameWindow.hpp"
 
-Player::Player(const RenderWindow &window, int w, int h, int x, int y, int r, int g, int b, int a):
-RenderWindow(window), _w(w),_h(h),_x(x),_y(y),_r(r),_g(g),_b(b),_a(a)
+Player::Player(const RenderWindow &screenSurface,int w, int h, int x, int y, int r, int g, int b, int a):
+RenderWindow(screenSurface), _w(w), _h(h), _x(x), _y(y), _r(r), _g(g), _b(b), _a(a)
 {
 
 }
 
-void const Player::draw() {
+void Player::draw()
+{
   SDL_Rect rect;
 
   rect.w = _w;
@@ -14,6 +16,6 @@ void const Player::draw() {
   rect.x = _x;
   rect.y = _y;
 
-  SDL_SetRenderDrawColor(screenSurface, 200, 150, 125, 255);
+  SDL_SetRenderDrawColor(screenSurface, 200, 100, 125, 255);
   SDL_RenderFillRect(screenSurface, &rect);
 }
