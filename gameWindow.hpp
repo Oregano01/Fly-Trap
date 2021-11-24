@@ -1,6 +1,7 @@
 #pragma once
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <stdio.h>
 #include <iostream>
 
 //class rendering our game window
@@ -21,8 +22,10 @@ public:
 
 private:
     SDL_Window* window = NULL;
-    SDL_Renderer* screenSurface = NULL;
     bool gameRunning;
     float win_Width = 1280;
     float win_Height = 720;
+
+protected:
+    SDL_Renderer *screenSurface = nullptr;
 };

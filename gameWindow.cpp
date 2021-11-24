@@ -66,15 +66,7 @@ void RenderWindow::render()
     SDL_RenderCopy(screenSurface, PlayerFlyTexture, srcRect, &destRect);
 
     //rendering square on screen
-    SDL_Rect rect;
 
-    rect.w = 120;
-    rect.h = 120;
-    rect.x = win_Width / 2;
-    rect.y = win_Height / 2;
-
-    SDL_SetRenderDrawColor(screenSurface, 200, 150, 125, 255);
-    SDL_RenderFillRect(screenSurface, &rect);
 
     SDL_RenderPresent(screenSurface);
 }
