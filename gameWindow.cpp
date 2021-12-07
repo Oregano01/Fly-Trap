@@ -9,7 +9,7 @@ RenderWindow::RenderWindow() {}
 RenderWindow::~RenderWindow() {}
 
 //Player texture
-SDL_Texture* PlayerFlyTexture;
+// SDL_Texture* PlayerFlyTexture;
 //Rectangle to contain our Player texture
 SDL_Rect* srcRect, destRect;
 
@@ -49,18 +49,19 @@ void RenderWindow::event()
         //     SDL_WINDOW_FULLSCREEN;
         //     break;
 
-        case SDLK_LEFT:
-            _x -= 10;
-            break;
-        case SDLK_RIGHT:
-            _x += 10;
-            break;
-        case SDLK_UP:
-            _y -= 10;
-            break;
-        case SDLK_DOWN:
-            _y += 10;
-            break;
+//moving player
+        // case SDLK_LEFT:
+        //     _x -= 10;
+        //     break;
+        // case SDLK_RIGHT:
+        //     _x += 10;
+        //     break;
+        // case SDLK_UP:
+        //     _y -= 10;
+        //     break;
+        // case SDLK_DOWN:
+        //     _y += 10;
+        //     break;
       }
       default:
           break;
@@ -75,27 +76,27 @@ void RenderWindow::render()
     SDL_RenderClear(screenSurface);
 
     //Rectangle containing our player graphic
-    SDL_Rect rect;
-    //position, width and height
-    rect.w = _w;
-    rect.h = _h;
-    rect.x = _x;
-    rect.y = _y;
+    // SDL_Rect rect;
+    // //position, width and height
+    // rect.w = _w;
+    // rect.h = _h;
+    // rect.x = _x;
+    // rect.y = _y;
 
     // Creating and rendering out player texture and later
-    auto temporarySurface = IMG_Load("graphics/fly.png");
-    PlayerFlyTexture = SDL_CreateTextureFromSurface(screenSurface, temporarySurface);
-
-    SDL_FreeSurface(temporarySurface);
-    SDL_RenderCopy(screenSurface, PlayerFlyTexture, nullptr, &rect);
+    // auto temporarySurface = IMG_Load("graphics/fly.png");
+    // PlayerFlyTexture = SDL_CreateTextureFromSurface(screenSurface, temporarySurface);
+    //
+    // SDL_FreeSurface(temporarySurface);
+    // SDL_RenderCopy(screenSurface, PlayerFlyTexture, nullptr, &rect);
     SDL_RenderPresent(screenSurface);
 }
 
 void RenderWindow::update()
 {
 
-  destRect.h = 200;
-  destRect.w = 200;
+  // destRect.h = 200;
+  // destRect.w = 200;
 
 }
 

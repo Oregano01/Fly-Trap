@@ -22,7 +22,7 @@ public:
 private:
     SDL_Window* window = NULL;
     bool gameRunning;
-    int _x = 1000 , _y = 300 , _w = 200 , _h = 200 ;
+    // int _x = 1000 , _y = 300 , _w = 200 , _h = 200 ;
 protected:
     SDL_Renderer* screenSurface = NULL;
 

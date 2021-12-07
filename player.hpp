@@ -6,11 +6,11 @@ class Player : public RenderWindow
 {
 public:
 
-  Player(const RenderWindow &screenSurface, int w, int h, int x, int y, int r, int g, int b, int a);
+  Player();
   ~Player();
   void draw();
 private:
-  int _w,_h;
-  int _x,_y;
+  int _x = 1000 , _y = 300 , _w = 200 , _h = 200 ;
   int _r,_g,_b,_a;
+
 };

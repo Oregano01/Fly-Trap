@@ -1,20 +1,26 @@
 #include "player.hpp"
+#include <iostream>
 
-Player::Player(const RenderWindow &screenSurface,int w, int h, int x, int y, int r, int g, int b, int a):
-RenderWindow(screenSurface), _w(w), _h(h), _x(x), _y(y), _r(r), _g(g), _b(b), _a(a)
-{
-
-}
+Player::Player() {}
 Player::~Player() {}
+
+SDL_Texture* PlayerFlyTexture;
 
 void Player::draw()
 {
+
   SDL_Rect rect;
+
   rect.w = _w;
   rect.h = _h;
   rect.x = _x;
   rect.y = _y;
 
-  SDL_SetRenderDrawColor(screenSurface, 200, 100, 125, 255);
-  SDL_RenderFillRect(screenSurface, &rect);
+  auto temporarySurface = IMG_Load("graphics/fly.png");
+  PlayerFlyTexture = SDL_CreateTextureFromSurface(screenSurface, temporarySurface);
+
+  SDL_FreeSurface(temporarySurface);
+  SDL_RenderCopy(screenSurface, PlayerFlyTexture, nullptr, &rect);
+
+  SDL_RenderPresent(screenSurface);
 }
