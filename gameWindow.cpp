@@ -11,7 +11,7 @@ RenderWindow::~RenderWindow() {}
 //Player texture
 // SDL_Texture* PlayerFlyTexture;
 //Rectangle to contain our Player texture
-SDL_Rect* srcRect, destRect;
+// SDL_Rect* srcRect, destRect;
 
 void RenderWindow::init(const char* title, int win_Width, int win_Height)
 {

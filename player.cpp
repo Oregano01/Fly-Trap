@@ -1,8 +1,14 @@
 #include "player.hpp"
 #include <iostream>
+#include "gameWindow.hpp"
 
 Player::Player() {}
 Player::~Player() {}
+
+// void Player::init()
+// {
+//
+// }
 
 SDL_Texture* PlayerFlyTexture;
 

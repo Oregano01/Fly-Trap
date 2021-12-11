@@ -14,6 +14,7 @@ int main(int argc, char* args[] )
     renderWin = new RenderWindow();
 
     renderWin->init("Fly-Trap", 1280 , 720);
+    // player->init();
 
     while (renderWin->running())
     {

@@ -19,6 +19,7 @@ public:
 
     bool running() {return gameRunning;}
 
+
 private:
     SDL_Window* window = NULL;
     bool gameRunning;
