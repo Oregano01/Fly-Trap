@@ -21,10 +21,10 @@ public:
 
 
 private:
-    SDL_Window* window = NULL;
+    SDL_Window* window = nullptr;
     bool gameRunning;
     // int _x = 1000 , _y = 300 , _w = 200 , _h = 200 ;
 protected:
-    SDL_Renderer* screenSurface = NULL;
+    SDL_Renderer* textureRender = nullptr;
 
 };
