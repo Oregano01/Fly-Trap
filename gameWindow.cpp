@@ -18,7 +18,7 @@ void RenderWindow::init(const char* title, int win_Width, int win_Height)
   if( SDL_Init( SDL_INIT_EVERYTHING ) == 0 )
   {
       window = SDL_CreateWindow( "Fly-Trap", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, win_Width , win_Height , SDL_WINDOW_RESIZABLE );
-      textureRender = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED);
+      screenSurface = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED);
 
       // Player draw(screenSurface);
 
@@ -74,8 +74,8 @@ void RenderWindow::event()
 
 void RenderWindow::render()
 {
-    // SDL_SetRenderDrawColor(screenSurface, 120, 150, 125, 255);
-    // SDL_RenderClear(screenSurface);
+    SDL_SetRenderDrawColor(screenSurface, 120, 150, 125, 255);
+    SDL_RenderClear(screenSurface);
 
     //Rectangle containing our player graphic
     // SDL_Rect rect;
@@ -91,7 +91,7 @@ void RenderWindow::render()
     //
     // SDL_FreeSurface(temporarySurface);
     // SDL_RenderCopy(screenSurface, PlayerFlyTexture, nullptr, &rect);
-    // SDL_RenderPresent(screenSurface);
+    SDL_RenderPresent(screenSurface);
 }
 
 void RenderWindow::update()
@@ -105,7 +105,7 @@ void RenderWindow::update()
 void RenderWindow::clean()
 {
   SDL_DestroyWindow(window);
-  SDL_DestroyRenderer(textureRender);
+  SDL_DestroyRenderer(screenSurface);
   IMG_Quit();
   SDL_Quit();
 }
