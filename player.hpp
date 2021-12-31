@@ -2,7 +2,7 @@
 
 #include "gameWindow.hpp"
 
-class Player : public RenderWindow
+class Player
 {
 public:
 
@@ -13,7 +13,8 @@ public:
   void draw(SDL_Renderer *textureRender);
 private:
   SDL_Rect rect;
-  SDL_Texture *PlayerFlyTexture;
+  SDL_Texture* PlayerFlyTexture;
+  SDL_Renderer* renderer;
 
   float moveSpeed;
   float frameCount;

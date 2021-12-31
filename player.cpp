@@ -102,18 +102,6 @@ void Player::update(float delta)
 void Player::draw(SDL_Renderer *textureRender)
 {
 
-
-
-  // SDL_Rect rect;
-  //
-  // rect.w = _w;
-  // rect.h = _h;
-  // rect.x = _x;
-  // rect.y = _y;
-  //
-  //
-  // auto temporarySurface = IMG_Load("graphics/fly.png");
-  // SDL_FreeSurface(temporarySurface);
   SDL_RenderCopy(textureRender, PlayerFlyTexture, &rect, &position);
 
 }

@@ -8,10 +8,11 @@
 RenderWindow::RenderWindow() {}
 RenderWindow::~RenderWindow() {}
 
-//Player texture
-// SDL_Texture* PlayerFlyTexture;
-//Rectangle to contain our Player texture
-// SDL_Rect* srcRect, destRect;
+Player* player;
+
+float currentTime;
+float prevTime;
+float delta;
 
 void RenderWindow::init(const char* title, int win_Width, int win_Height)
 {
@@ -20,8 +21,6 @@ void RenderWindow::init(const char* title, int win_Width, int win_Height)
       window = SDL_CreateWindow( "Fly-Trap", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, win_Width , win_Height , SDL_WINDOW_RESIZABLE );
       screenSurface = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED);
 
-      // Player draw(screenSurface);
-
       gameRunning = true;
     }
     else
@@ -29,13 +28,14 @@ void RenderWindow::init(const char* title, int win_Width, int win_Height)
       gameRunning = false;
 
     }
+    player = new Player(screenSurface, "graphics/player.png", 0, 0, 3, 4);
+
   }
 
 //
 void RenderWindow::event()
 {
   SDL_Event event;
-
   if (SDL_PollEvent(&event)) {
     switch (event.type) {
         case SDL_QUIT:
@@ -47,23 +47,7 @@ void RenderWindow::event()
         case SDLK_ESCAPE:
             gameRunning = false;
             break;
-        // case SDLK_f:
-        //     SDL_WINDOW_FULLSCREEN;
-        //     break;
 
-//moving player
-        // case SDLK_LEFT:
-        //     _x -= 10;
-        //     break;
-        // case SDLK_RIGHT:
-        //     _x += 10;
-        //     break;
-        // case SDLK_UP:
-        //     _y -= 10;
-        //     break;
-        // case SDLK_DOWN:
-        //     _y += 10;
-        //     break;
       }
       default:
           break;
@@ -74,32 +58,20 @@ void RenderWindow::event()
 
 void RenderWindow::render()
 {
-    SDL_SetRenderDrawColor(screenSurface, 120, 150, 125, 255);
     SDL_RenderClear(screenSurface);
+    SDL_SetRenderDrawColor(screenSurface, 120, 150, 125, 255);
+    player->draw(screenSurface);
 
-    //Rectangle containing our player graphic
-    // SDL_Rect rect;
-    // //position, width and height
-    // rect.w = _w;
-    // rect.h = _h;
-    // rect.x = _x;
-    // rect.y = _y;
-
-    // Creating and rendering out player texture and later
-    // auto temporarySurface = IMG_Load("graphics/fly.png");
-    // PlayerFlyTexture = SDL_CreateTextureFromSurface(screenSurface, temporarySurface);
-    //
-    // SDL_FreeSurface(temporarySurface);
-    // SDL_RenderCopy(screenSurface, PlayerFlyTexture, nullptr, &rect);
     SDL_RenderPresent(screenSurface);
 }
 
 void RenderWindow::update()
 {
+  prevTime = currentTime;
+  currentTime = SDL_GetTicks();
+  delta = (currentTime - prevTime) / 1000;
 
-  // destRect.h = 200;
-  // destRect.w = 200;
-
+  player -> update(delta);
 }
 
 void RenderWindow::clean()
