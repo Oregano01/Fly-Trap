@@ -12,7 +12,7 @@ int main(int argc, char* args[] )
 {
     renderWin = new RenderWindow();
 
-    renderWin->init("Fly-Trap", 1280 , 720);
+    renderWin->init("Fly-Trap", 800, 680);
 
     while (renderWin->running())
     {

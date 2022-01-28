@@ -10,6 +10,8 @@ RenderWindow::~RenderWindow() {}
 
 Player* player;
 
+SDL_Renderer* RenderWindow::screenSurface = nullptr;
+
 float currentTime;
 float prevTime;
 float delta;
@@ -28,7 +30,7 @@ void RenderWindow::init(const char* title, int win_Width, int win_Height)
       gameRunning = false;
 
     }
-    player = new Player(screenSurface, "graphics/player.png", 0, 0, 3, 4);
+    player = new Player("graphics/player.png", 100, 100, 3, 4);
 
   }
 
@@ -59,8 +61,7 @@ void RenderWindow::event()
 void RenderWindow::render()
 {
     SDL_RenderClear(screenSurface);
-    SDL_SetRenderDrawColor(screenSurface, 120, 150, 125, 255);
-    player->draw(screenSurface);
+    player->render();
 
     SDL_RenderPresent(screenSurface);
 }

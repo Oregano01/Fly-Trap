@@ -3,7 +3,7 @@
 #include "gameWindow.hpp"
 
 
-Player::Player(SDL_Renderer *textureRender, std::string filePath, int x, int y, int frameX, int frameY)
+Player::Player(std::string filePath, int x, int y, int frameX, int frameY)
 {
   //creating surface for our player texture
   SDL_Surface *screenSurface = IMG_Load(filePath.c_str());
@@ -12,7 +12,7 @@ Player::Player(SDL_Renderer *textureRender, std::string filePath, int x, int y, 
   else
   {
     //rendering texture
-    PlayerFlyTexture = SDL_CreateTextureFromSurface(textureRender, screenSurface);
+    PlayerFlyTexture = SDL_CreateTextureFromSurface(RenderWindow::screenSurface, screenSurface);
 
     if (PlayerFlyTexture == nullptr)
         std::cout << "Texture Error" << std::endl;
@@ -95,13 +95,26 @@ void Player::update(float delta)
     frameCount = 0;
     rect.x = frameWidth;
   }
+
 }
 
 // SDL_Texture* PlayerFlyTexture;
 
-void Player::draw(SDL_Renderer *textureRender)
+void Player::render()
 {
 
-  SDL_RenderCopy(textureRender, PlayerFlyTexture, &rect, &position);
+
+
+  // SDL_Rect rect;
+  //
+  // rect.w = _w;
+  // rect.h = _h;
+  // rect.x = _x;
+  // rect.y = _y;
+  //
+  //
+  // auto temporarySurface = IMG_Load("graphics/fly.png");
+  // SDL_FreeSurface(temporarySurface);
+  SDL_RenderCopy(RenderWindow::screenSurface, PlayerFlyTexture, &rect, &position);
 
 }
