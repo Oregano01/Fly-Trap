@@ -15,6 +15,7 @@ SDL_Renderer* RenderWindow::screenSurface = nullptr;
 float currentTime;
 float prevTime;
 float delta;
+const Uint8 *key;
 
 void RenderWindow::init(const char* title, int win_Width, int win_Height)
 {
@@ -24,6 +25,10 @@ void RenderWindow::init(const char* title, int win_Width, int win_Height)
       screenSurface = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED);
 
       gameRunning = true;
+
+      prevTime = currentTime;
+      currentTime = SDL_GetTicks();
+      delta = (currentTime - prevTime) / 1000;
     }
     else
     {
@@ -68,11 +73,9 @@ void RenderWindow::render()
 
 void RenderWindow::update()
 {
-  prevTime = currentTime;
-  currentTime = SDL_GetTicks();
-  delta = (currentTime - prevTime) / 1000;
+  key = SDL_GetKeyboardState(nullptr);
 
-  player -> update(delta);
+  player -> update(delta, key);
 }
 
 void RenderWindow::clean()

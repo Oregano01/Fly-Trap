@@ -9,13 +9,13 @@ public:
   Player(std::string filePath, int x, int y, int frameX, int frameY);
   ~Player();
 
-  void update(float delta);
+  void update(float delta, const Uint8* key);
   void render();
 private:
   SDL_Rect rect;
   SDL_Texture* PlayerFlyTexture;
 
-  float moveSpeed;
+  float moveSpeed = 100;
   float frameCount;
 
   bool Active;

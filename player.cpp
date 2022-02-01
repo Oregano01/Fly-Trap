@@ -1,5 +1,5 @@
-#include "player.hpp"
 #include <iostream>
+#include "player.hpp"
 #include "gameWindow.hpp"
 
 
@@ -19,6 +19,7 @@ Player::Player(std::string filePath, int x, int y, int frameX, int frameY)
   }
 
   SDL_FreeSurface(screenSurface);
+
 //getting total width and height of the texture
   SDL_QueryTexture(PlayerFlyTexture, nullptr, nullptr, &rect.w, &rect.h);
 
@@ -27,22 +28,16 @@ Player::Player(std::string filePath, int x, int y, int frameX, int frameY)
 
   textureWidth = rect.w;
 
-//selecting actual sprite
+//selecting actual dividing height and width of our sprites by given values
   rect.w /= frameX;
   rect.h /= frameY;
 
+//selecting exact frame
   frameWidth = position.w = rect.w;
   frameHeight = position.h = rect.h;
 
   Active = false;
 
-  static int playerNumber = 0;
-  playerNumber++;
-
-  if (playerNumber ==1)
-  {
-
-  }
 }
 
 
@@ -52,30 +47,35 @@ Player::~Player()
 }
 
 
-void Player::update(float delta)
+void Player::update(float delta, const Uint8 *key)
 {
   Active = true;
-  //drawind and moving our sprites animation
-  if(SDL_SCANCODE_W)
-  {
-    position.y -= moveSpeed * delta;
-    rect.y = frameHeight * 3;
-  }
-  else if (SDL_SCANCODE_S)
-  {
-    position.y += moveSpeed * delta;
-    rect.y = 0;
-  }
-  else if (SDL_SCANCODE_A)
-  {
-    position.x -= moveSpeed * delta;
-    rect.y = frameHeight;
-  }
-  else if (SDL_SCANCODE_D)
-  {
-    position.x += moveSpeed * delta;
-    rect.y  = frameHeight * 2;
-  }
+
+  // if sequence where we are chosing proper animation frame
+   if(key[SDL_SCANCODE_W])
+   {
+     position.y -= moveSpeed * delta;
+     rect.y = frameHeight * 3;
+   }
+   else if(key[SDL_SCANCODE_S])
+   {
+     position.y += moveSpeed * delta;
+     rect.y = 0;
+   }
+   else if(key[SDL_SCANCODE_A])
+   {
+     position.x -= moveSpeed * delta;
+     rect.y = frameHeight;
+   }
+   else if(key[SDL_SCANCODE_D])
+   {
+     position.x += moveSpeed * delta;
+     rect.y = frameHeight * 2;
+   }
+   else
+   {
+     Active = false;
+   }
 
   if(Active)
   {
@@ -104,17 +104,6 @@ void Player::render()
 {
 
 
-
-  // SDL_Rect rect;
-  //
-  // rect.w = _w;
-  // rect.h = _h;
-  // rect.x = _x;
-  // rect.y = _y;
-  //
-  //
-  // auto temporarySurface = IMG_Load("graphics/fly.png");
-  // SDL_FreeSurface(temporarySurface);
   SDL_RenderCopy(RenderWindow::screenSurface, PlayerFlyTexture, &rect, &position);
 
 }
